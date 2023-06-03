@@ -28,7 +28,7 @@ function determineCurrentPageType(): WikipathType | null {
 
 function readyHandler() {
     const pageType = determineCurrentPageType();
-    console.debug("detect page type was " + (pageType === null ? "(none)" : pageType)) // TODO: delete!
+    console.debug("detect page type was " + (pageType === null ? "(none)" : WikipathType[pageType])) // TODO: delete!
     if (pageType === WikipathType.MIXED_USER_LISTING) {
 
     }
