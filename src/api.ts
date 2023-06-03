@@ -1,5 +1,5 @@
 import mw from './apiTypeDef'
 
 export default {
-    localApi: new mw.Api()
+  localApi: new mw.Api()
 }
