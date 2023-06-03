@@ -31,17 +31,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Filter
+      - name: Build
         run: |
-          mkdir deploy
-          cp glance.js deploy/
+          npm i
+          npx webpack
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload only filtered parts
-          path: './deploy'
+          # Upload only built package
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
