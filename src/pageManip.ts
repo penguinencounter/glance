@@ -6,7 +6,7 @@ type WikipathType = (
 )
 const wikipathTypeMatchers: {[key in WikipathType]?: ((loc: URL) => boolean)[]} = {
     versionListing: [
-        (loc: URL) => loc.searchParams["action"] === "history",
+        (loc: URL) => loc.searchParams.get("action") === "history",
         (loc: URL) => !!loc.pathname.match(/Special:RecentChanges$/),
         (loc: URL) => !!loc.pathname.match(/Special:Watchlist$/)
     ],
@@ -27,7 +27,7 @@ function determineCurrentPageType(): WikipathType | null {
 
 function readyHandler() {
     const pageType = determineCurrentPageType();
-    console.debug("detect page type was " + pageType ? pageType : "(none?)") // TODO: delete!
+    console.debug("detect page type was " + (pageType === null ? "(none)" : pageType)) // TODO: delete!
     if (pageType === "versionListing") {
 
     }

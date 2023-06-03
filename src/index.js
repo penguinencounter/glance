@@ -8,8 +8,6 @@ import pageManip from "./pageManip"
 
 console.info("Welcome to Glance!")
 
-console.info(api.localApi)
-
 function GlanceOptions(config) {
     GlanceOptions.super.apply(this, config)
 }
