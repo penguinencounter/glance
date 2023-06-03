@@ -1,0 +1,25 @@
+{
+  "name": "glance",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "watch": "npx tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penguinencounter/glance.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/penguinencounter/glance/issues"
+  },
+  "homepage": "https://github.com/penguinencounter/glance#readme",
+  "dependencies": {
+    "@types/oojs-ui": "^0.46.3",
+    "oojs-ui": "^0.47.0",
+    "typescript": "^5.1.3"
+  }
+}
