@@ -2,6 +2,7 @@
 enum WikipathType {
     MIXED_USER_LISTING,
     SINGLE_USER_LISTING,
+    DIFF,
 }
 const wikipathTypeMatchers: {[key in WikipathType]: ((loc: URL) => boolean)[]} = {
     [WikipathType.MIXED_USER_LISTING]: [
@@ -13,6 +14,9 @@ const wikipathTypeMatchers: {[key in WikipathType]: ((loc: URL) => boolean)[]} =
     [WikipathType.SINGLE_USER_LISTING]: [
         (loc: URL) => !!loc.pathname.match(/Special:Contributions\/.*$/)
     ],
+    [WikipathType.DIFF]: [
+        (loc: URL) => loc.searchParams.has("diff")
+    ]
 
 }
 
