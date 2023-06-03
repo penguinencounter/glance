@@ -1,4 +1,5 @@
 import shared from './shared'
+import components from './components'
 
 enum WikipathType {
   MIXED_USER_LISTING,
@@ -39,7 +40,7 @@ function makeSingleUserListing(): void {
     shared.displayErrorPopup('Could not find a suitable target location to insert Glance info.')
     return;
   }
-  document.querySelector('#mw-content-text')?.prepend(glanceContainer)
+  document.querySelector('#mw-content-text')?.prepend(components.largeContainer(glanceContainer))
 }
 
 function readyHandler(): void {

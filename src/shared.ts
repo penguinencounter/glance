@@ -4,7 +4,7 @@
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui-wikimediaui.js" />
 
 export default {
-    displayErrorPopup: function(message: string): void {
+    displayErrorPopup: function (message: string): void {
         OO.ui.alert(message, { title: 'Glance error', size: 'medium' })
     }
 }
