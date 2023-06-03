@@ -1,4 +1,5 @@
-import api from "./api.ts"
+import api from "./api"
+import pageManip from "./pageManip"
 
 /// <reference path="../node_modules/jquery/dist/jquery.js" />
 /// <reference path="../node_modules/oojs/dist/oojs.js" />
@@ -77,4 +78,7 @@ $(() => {
     sidebarItem.appendChild(sidebarLink)
     sidebarItem.classList.add("mw-list-item")
     document.querySelector("#p-tb .vector-menu-content-list").appendChild(sidebarItem);
+
+    // initialize page manipulation - track type of page for patches
+    pageManip.readyHandler();
 })
