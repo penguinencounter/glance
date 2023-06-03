@@ -15,7 +15,7 @@ GlanceOptions.static.actions = [
     {
         action: "save",
         label: "Save",
-        flags: "primary"
+        flags: ["primary", "progressive"]
     },
     {
         label: "Discard",
