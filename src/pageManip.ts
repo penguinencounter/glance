@@ -1,25 +1,26 @@
 
-type WikipathType = (
-    "versionListing"
-    | "diff"
-    | "userContributions"
-)
-const wikipathTypeMatchers: {[key in WikipathType]?: ((loc: URL) => boolean)[]} = {
-    versionListing: [
+enum WikipathType {
+    MIXED_USER_LISTING,
+    SINGLE_USER_LISTING,
+}
+const wikipathTypeMatchers: {[key in WikipathType]: ((loc: URL) => boolean)[]} = {
+    [WikipathType.MIXED_USER_LISTING]: [
         (loc: URL) => loc.searchParams.get("action") === "history",
         (loc: URL) => !!loc.pathname.match(/Special:RecentChanges$/),
-        (loc: URL) => !!loc.pathname.match(/Special:Watchlist$/)
+        (loc: URL) => !!loc.pathname.match(/Special:Watchlist$/),
+        (loc: URL) => !!loc.pathname.match(/Special:Log$/)
     ],
-    userContributions: [
+    [WikipathType.SINGLE_USER_LISTING]: [
         (loc: URL) => !!loc.pathname.match(/Special:Contributions\/.*$/)
-    ]
+    ],
+
 }
 
 function determineCurrentPageType(): WikipathType | null {
     const loc = new URL(location.href);
     for (const [type, matchers] of Object.entries(wikipathTypeMatchers)) {
         if (matchers.some(matcher => matcher(loc))) {
-            return type as WikipathType;
+            return +type as WikipathType;
         }
     }
     return null;
@@ -28,7 +29,7 @@ function determineCurrentPageType(): WikipathType | null {
 function readyHandler() {
     const pageType = determineCurrentPageType();
     console.debug("detect page type was " + (pageType === null ? "(none)" : pageType)) // TODO: delete!
-    if (pageType === "versionListing") {
+    if (pageType === WikipathType.MIXED_USER_LISTING) {
 
     }
 }
