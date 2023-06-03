@@ -70,5 +70,5 @@ $(() => {
 
     sidebarItem.appendChild(sidebarLink)
     sidebarItem.classList.add("mw-list-item")
-    document.querySelector("#p-cactions .vector-menu-content-list").appendChild(sidebarItem);
+    document.querySelector("#p-tb .vector-menu-content-list").appendChild(sidebarItem);
 })
