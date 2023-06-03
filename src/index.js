@@ -3,6 +3,8 @@
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui.js" />
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui-wikimediaui.js" />
 
+console.info("Welcome to Glance!")
+
 function GlanceOptions(config) {
     GlanceOptions.super.apply(this, config)
 }
