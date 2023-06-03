@@ -1,9 +1,13 @@
+import api from "./api.ts"
+
 /// <reference path="../node_modules/jquery/dist/jquery.js" />
 /// <reference path="../node_modules/oojs/dist/oojs.js" />
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui.js" />
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui-wikimediaui.js" />
 
 console.info("Welcome to Glance!")
+
+console.info(api.localApi)
 
 function GlanceOptions(config) {
     GlanceOptions.super.apply(this, config)
