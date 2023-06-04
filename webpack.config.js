@@ -11,6 +11,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.r\.(css|html|txt)/,
+        type: 'asset/source'
+      },
+      {
         test: /\.ts/,
         use: 'ts-loader',
         exclude: /node_modules/

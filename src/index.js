@@ -1,5 +1,7 @@
 import api from './api'
+import uiEditor from './uiEditor/uiEditor'
 import pageManip from './pageManip'
+import metaFunctions from './meta'
 
 /// <reference path="../node_modules/jquery/dist/jquery.js" />
 /// <reference path="../node_modules/oojs/dist/oojs.js" />
@@ -78,5 +80,6 @@ $(() => {
   document.querySelector('#p-tb .vector-menu-content-list').appendChild(sidebarItem)
 
   // initialize page manipulation - track type of page for patches
-  pageManip.readyHandler()
+  pageManip.ready()
+  metaFunctions.ready()
 })

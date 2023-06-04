@@ -60,5 +60,5 @@ function readyHandler(): void {
 
 // if you remove this, webpack blows up
 export default {
-  readyHandler
+  ready: readyHandler
 }
