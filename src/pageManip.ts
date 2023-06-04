@@ -42,8 +42,7 @@ function makeSingleUserListing(): void {
   }
   const container = components.largeContainer(glanceContainer);
   console.info(container[0])
-  // FIXME: takes up whole page
-  // targetLocation.prepend(container[0])
+  targetLocation.prepend(container[0])
 }
 
 function readyHandler(): void {

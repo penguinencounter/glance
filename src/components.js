@@ -10,9 +10,9 @@ function largeContainer(content) {
     return new OO.ui.PanelLayout({
         $content: $(content),
         padded: true,
+        framed: true,
         scrollable: false,
         expanded: false,
-        framed: true,
         classes: ["glance-large-container"],
     }).$element
 }
