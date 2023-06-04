@@ -8,7 +8,6 @@ import shared from "./shared";
 /** @param {{uiBuilderContent: HTMLElement}} config */
 function GlanceLargeContainer(config) {
     GlanceLargeContainer.super.apply(this, config)
-    this.$element.addClass('glance-large-container')
     this.uiBuilderContent = config.uiBuilderContent
 }
 OO.inheritClass(GlanceLargeContainer, OO.ui.PanelLayout)
@@ -16,6 +15,7 @@ GlanceLargeContainer.static.name = 'glanceLargeContainer'
 
 GlanceLargeContainer.prototype.initialize = function () {
     GlanceLargeContainer.super.prototype.initialize.apply(this, arguments)
+    this.$element.addClass('glance-large-container')
     this.$element.append(this.uiBuilderContent)
 }
 
