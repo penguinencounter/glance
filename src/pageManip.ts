@@ -41,8 +41,8 @@ function makeSingleUserListing(): void {
     return;
   }
   const container = components.largeContainer(glanceContainer);
-  console.info(container)
-  targetLocation.prepend(container)
+  console.info(container[0])
+  targetLocation.prepend(container[0])
 }
 
 function readyHandler(): void {
