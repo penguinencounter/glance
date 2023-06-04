@@ -5,24 +5,15 @@ import shared from "./shared";
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui.js" />
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui-wikimediaui.js" />
 
-/** @param {{uiBuilderContent: HTMLElement}} config */
-function GlanceLargeContainer(config) {
-    GlanceLargeContainer.super.apply(this, config)
-    this.uiBuilderContent = config.uiBuilderContent
-}
-OO.inheritClass(GlanceLargeContainer, OO.ui.PanelLayout)
-GlanceLargeContainer.static.name = 'glanceLargeContainer'
-
-GlanceLargeContainer.prototype.initialize = function () {
-    GlanceLargeContainer.super.prototype.initialize.apply(this, arguments)
-    this.$element.addClass('glance-large-container')
-    this.$element.append(this.uiBuilderContent)
-}
-
 /** @param {HTMLElement} content */
 function largeContainer(content) {
-    return new GlanceLargeContainer({
-        uiBuilderContent: content
+    return new OO.ui.PanelLayout({
+        $content: $(content),
+        padded: true,
+        scrollable: false,
+        expanded: false,
+        framed: true,
+        classes: ["glance-large-container"],
     }).$element
 }
 
