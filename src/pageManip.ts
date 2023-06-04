@@ -40,7 +40,7 @@ function makeSingleUserListing(): void {
     shared.displayErrorPopup('Could not find a suitable target location to insert Glance info.')
     return;
   }
-  document.querySelector('#mw-content-text')?.prepend(components.largeContainer(glanceContainer))
+  targetLocation.prepend(components.largeContainer(glanceContainer))
 }
 
 function readyHandler(): void {
