@@ -56,10 +56,6 @@ GlanceOptions.prototype.getBodyHeight = function () {
 const winMgr = new OO.ui.WindowManager()
 $(document.body).append(winMgr.$element)
 
-const glanceOptions = new GlanceOptions({
-  size: 'large'
-})
-
 winMgr.addWindows([glanceOptions])
 
 // ready?

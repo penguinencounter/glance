@@ -7,16 +7,23 @@ import shared from "./shared";
 
 /** @param {HTMLElement} content */
 function largeContainer(content) {
-    return new OO.ui.PanelLayout({
-        $content: $(content),
-        padded: true,
-        framed: true,
-        scrollable: false,
-        expanded: false,
-        classes: ["glance-large-container"],
-    }).$element
+  return new OO.ui.PanelLayout({
+    $content: $(content),
+    padded: true,
+    framed: true,
+    scrollable: false,
+    expanded: false,
+    classes: ["glance-large-container"],
+  }).$element
 }
 
+
+
+const glanceOptions = new GlanceOptions({
+  size: 'large'
+})
+
 export default {
-    largeContainer: largeContainer
+  largeContainer: largeContainer,
+
 }

@@ -88,19 +88,17 @@ interface mwApi {
   rollback: (page: Titleable, user: string, params?: Object) => JQuery.Promise<Object>
   saveOption: (name: string, value: string | null) => JQuery.Promise<unknown>
   saveOptions: (options: Object) => JQuery.Promise<unknown>
-  unwatch: ((pages: Titleable, addParams?: Object) => JQuery.Promise<{ title: string, watched: boolean }>) |
-  ((pages: Titleable[], addParams?: Object) => JQuery.Promise<Array<{ title: string, watched: boolean }>>)
+  unwatch: ((pages: Titleable, addParams?: Object) => JQuery.Promise<{ title: string, watched: boolean }>) | ((pages: Titleable[], addParams?: Object) => JQuery.Promise<Array<{ title: string, watched: boolean }>>)
   upload: (file: HTMLInputElement | File | Blob, data: Object) => JQuery.Promise<Object>
   uploadFromStash: (filekey: string, data: Object) => JQuery.Promise<Object>
   uploadToStash: () => FinishUploadJQueryPromise
-  watch: ((pages: Titleable, addParams?: Object) => JQuery.Promise<{ title: string, watched: boolean }>) |
-  ((pages: Titleable[], addParams?: Object) => JQuery.Promise<Array<{ title: string, watched: boolean }>>)
+  watch: ((pages: Titleable, addParams?: Object) => JQuery.Promise<{ title: string, watched: boolean }>) | ((pages: Titleable[], addParams?: Object) => JQuery.Promise<Array<{ title: string, watched: boolean }>>)
 }
 
 // static methods
 // constructor
 // static properties
-type mwApiStatic = new(defaultOptions?: Object) => mwApi
+type mwApiStatic = new (defaultOptions?: Object) => mwApi
 
 /* @ts-expect-error */
 const Title: mwTitleStatic = mw.Title
