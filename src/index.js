@@ -26,12 +26,12 @@ $(() => {
   sidebarLink.addEventListener('click', e => {
     e.preventDefault()
     e.stopPropagation()
-    winMgr.openWindow(glanceOptions)
+    winMgr.openWindow(components.glanceOptions)
   })
 
   sidebarItem.appendChild(sidebarLink)
   sidebarItem.classList.add('mw-list-item')
-  document.querySelector('#p-tb .vector-menu-content-list').appendChild(sidebarItem)
+  document.querySelector('#p-tb .vector-menu-content-list')?.appendChild(sidebarItem)
 
   // initialize page manipulation - track type of page for patches
   pageManip.ready()
