@@ -43,10 +43,7 @@ GlanceOptions.prototype.initialize = function () {
     label: 'Launch UI editor (dev)'
   })
   this.mainLayout.addItems([
-    new OO.ui.FieldLayout(this.debugLaunchUiEditor, {
-      align: 'top',
-      label: 'Debug'
-    })
+    new OO.ui.FieldLayout(this.debugLaunchUiEditor)
   ])
 
   this.windowContainer = new OO.ui.PanelLayout({
