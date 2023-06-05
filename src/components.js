@@ -37,12 +37,23 @@ GlanceOptions.static.actions = [
 
 GlanceOptions.prototype.initialize = function () {
   GlanceOptions.super.prototype.initialize.apply(this, arguments)
+  this.mainLayout = new OO.ui.FieldsetLayout()
+
+  this.debugLaunchUiEditor = new OO.ui.ButtonWidget({
+    label: 'Launch UI editor (dev)'
+  })
+  this.mainLayout.addItems([
+    new OO.ui.FieldLayout(this.debugLaunchUiEditor, {
+      align: 'top',
+      label: 'Debug'
+    })
+  ])
 
   this.windowContainer = new OO.ui.PanelLayout({
+    $content: this.mainLayout.$element,
     padded: true,
     expanded: false
   })
-  this.windowContainer.
 
   this.$body.append(this.windowContainer.$element)
 }
