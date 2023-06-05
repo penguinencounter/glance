@@ -4,4 +4,20 @@
     left: 0;
     bottom: 0;
     right: 0;
+    display: none;
+}
+
+@keyframes open {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+#glance-ui-editor.opened {
+    display: block;
+    z-index: 1001;
+    animation: open 200ms linear 0 1 forwards;
 }
