@@ -62,7 +62,7 @@ class UIEditor {
     } else {
       this.main = UIEditor.initDOM()
     }
-    this.main.addEventListener("keydown", this.overflowKeyHandler.bind(this))
+    this.main.addEventListener("keydown", this.overflowKeyDownHandler.bind(this))
   }
 
   public static get(): UIEditor {
@@ -71,7 +71,7 @@ class UIEditor {
     return uiEditor = new UIEditor()
   }
 
-  private overflowKeyHandler(e: KeyboardEvent): void {
+  private overflowKeyDownHandler(e: KeyboardEvent): void {
     console.info("keydown", e)
     if (this.locked) return; // ignore keypresses while locked
     let handled: boolean = false
@@ -80,10 +80,9 @@ class UIEditor {
       handled = true
     }
 
-    if (handled) {
-      e.preventDefault()
-      e.stopPropagation()
-    }
+    // pretend this is the root of the document, and deny events to any other elements
+    e.preventDefault()
+    e.stopPropagation()
   }
 
   public syncImmediateOpen(): void {
