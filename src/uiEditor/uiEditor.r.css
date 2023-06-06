@@ -41,11 +41,11 @@
 #glance-ui-editor.glance-ui-editor-opening {
   display: block;
   z-index: 1001;
-  animation: glance-ui-editor-open var(--glance-open-anim-time) linear 0 1 forwards;
+  animation: var(--glance-open-anim-time) 0ms linear 1 forwards glance-ui-editor-open;
 }
 
 #glance-ui-editor.glance-ui-editor-closing {
   display: block;
   z-index: 1001;
-  animation: glance-ui-editor-close var(--glance-close-anim-time) linear 0 1 forwards;
+  animation: var(--glance-close-anim-time) 0ms linear 1 forwards glance-ui-editor-close;
 }

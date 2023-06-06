@@ -95,7 +95,6 @@ class UIEditor {
   
   public async open(instant?: boolean): Promise<void> {
     instant = instant || false;
-    this.assertUnlocked()
     this.main.focus();
     if (instant) {
       this.main.classList.add("glance-ui-editor-open");
