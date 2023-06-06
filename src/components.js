@@ -1,4 +1,5 @@
 import shared from "./shared";
+import uiEditor from "./uiEditor/uiEditor";
 
 /// <reference path="../node_modules/jquery/dist/jquery.js" />
 /// <reference path="../node_modules/oojs/dist/oojs.js" />
@@ -41,6 +42,9 @@ GlanceOptions.prototype.initialize = function () {
 
   this.debugLaunchUiEditor = new OO.ui.ButtonWidget({
     label: 'Launch UI editor (dev)'
+  })
+  this.debugLaunchUiEditor.on('click', () => {
+    uiEditor.UIEditor.get().open();
   })
   this.mainLayout.addItems([
     new OO.ui.FieldLayout(this.debugLaunchUiEditor)

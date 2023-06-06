@@ -1,3 +1,8 @@
+:root {
+  --glance-close-anim-time: 200ms;
+  --glance-open-anim-time: 200ms;
+}
+
 #glance-ui-editor {
   position: fixed;
   top: 0;
@@ -7,7 +12,7 @@
   display: none;
 }
 
-@keyframes open {
+@keyframes glance-ui-editor-open {
   from {
     opacity: 0%;
   }
@@ -17,8 +22,29 @@
   }
 }
 
-#glance-ui-editor.opened {
+@keyframes glance-ui-editor-close {
+  from {
+    opacity: 100%;
+  }
+
+  to {
+    opacity: 0%;
+  }
+}
+
+#glance-ui-editor.glance-ui-editor-open {
   display: block;
   z-index: 1001;
-  animation: open 200ms linear 0 1 forwards;
+}
+
+#glance-ui-editor.glance-ui-editor-opening {
+  display: block;
+  z-index: 1001;
+  animation: glance-ui-editor-open var(--glance-open-anim-time) linear 0 1 forwards;
+}
+
+#glance-ui-editor.glance-ui-editor-closing {
+  display: block;
+  z-index: 1001;
+  animation: glance-ui-editor-close var(--glance-close-anim-time) linear 0 1 forwards;
 }
