@@ -16,6 +16,10 @@
   display: none;
 }
 
+#glance-ui-editor:focus {
+  outline: none;
+}
+
 @keyframes glance-ui-editor-open {
   from {
     opacity: 0%;
