@@ -90,6 +90,7 @@ class UIEditor {
     // Cancel opening animation if it's not open - prevent conflict
     if (!this.main.classList.contains("glance-ui-editor-open")) return;
     this.main.classList.remove("glance-ui-editor-closing", "glance-ui-editor-opening")
+    document.body.classList.add("glance-no-scroll")
     this.locked = false
   }
   
@@ -112,6 +113,7 @@ class UIEditor {
     // Cancel closing animation if it's open - prevent conflict
     if (this.main.classList.contains("glance-ui-editor-open")) return;
     this.main.classList.remove("glance-ui-editor-closing", "glance-ui-editor-opening", "glance-ui-editor-open")
+    document.body.classList.remove("glance-no-scroll")
     this.locked = true
   }
 

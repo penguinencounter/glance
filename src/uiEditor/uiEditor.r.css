@@ -3,6 +3,10 @@
   --glance-open-anim-time: 200ms;
 }
 
+.glance-no-scroll {
+  overflow: hidden;
+}
+
 #glance-ui-editor {
   position: fixed;
   top: 0;
