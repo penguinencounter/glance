@@ -90,12 +90,12 @@ class UIEditor {
     if (!this.main.classList.contains("glance-ui-editor-open")) return;
     this.main.classList.remove("glance-ui-editor-closing", "glance-ui-editor-opening")
     document.body.classList.add("glance-no-scroll")
+    this.main.focus();
     this.locked = false
   }
   
   public async open(instant?: boolean): Promise<void> {
     instant = instant || false;
-    this.main.focus();
     if (instant) {
       this.main.classList.add("glance-ui-editor-open");
       this.syncImmediateOpen()
