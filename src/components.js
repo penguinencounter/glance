@@ -45,6 +45,7 @@ GlanceOptions.prototype.initialize = function () {
   })
   this.debugLaunchUiEditor.on('click', () => {
     uiEditor.UIEditor.get().open();
+    this.close();
   })
   this.mainLayout.addItems([
     new OO.ui.FieldLayout(this.debugLaunchUiEditor)

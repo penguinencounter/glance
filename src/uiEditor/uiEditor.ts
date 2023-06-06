@@ -44,6 +44,7 @@ class UIEditor {
     const main = document.createElement("div")
     main.id = "glance-ui-editor"
     main.innerHTML = SOURCE
+    main.tabIndex = -1
     document.body.appendChild(main)
 
     return main
@@ -95,6 +96,7 @@ class UIEditor {
   public async open(instant?: boolean): Promise<void> {
     instant = instant || false;
     this.assertUnlocked()
+    this.main.focus();
     if (instant) {
       this.main.classList.add("glance-ui-editor-open");
       this.syncImmediateOpen()
