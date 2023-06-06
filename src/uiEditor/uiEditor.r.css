@@ -75,13 +75,13 @@ button.glance-progressive {
 #glance-ui-editor.glance-ui-editor-opening {
   display: block;
   z-index: 1001;
-  animation: var(--glance-open-anim-time) 0ms ease 1 glance-ui-editor-open;
+  animation: var(--glance-open-anim-time) 0ms ease 1 forwards glance-ui-editor-open;
 }
 
 #glance-ui-editor.glance-ui-editor-closing {
   display: block;
   z-index: 1001;
-  animation: var(--glance-close-anim-time) 0ms ease 1 glance-ui-editor-close;
+  animation: var(--glance-close-anim-time) 0ms ease 1 forwards glance-ui-editor-close;
 }
 
 /* Header */
