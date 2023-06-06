@@ -71,6 +71,7 @@ class UIEditor {
   }
 
   private overflowKeyHandler(e: KeyboardEvent): void {
+    console.info("keydown", e)
     if (this.locked) return; // ignore keypresses while locked
     let handled: boolean = false
     if (e.key === "Escape") {
@@ -85,7 +86,7 @@ class UIEditor {
   }
 
   public syncImmediateOpen(): void {
-    // Not open? Cancel that animation!
+    // Cancel opening animation if it's not open - prevent conflict
     if (!this.main.classList.contains("glance-ui-editor-open")) return;
     this.main.classList.remove("glance-ui-editor-closing", "glance-ui-editor-opening")
     this.locked = false
@@ -107,7 +108,7 @@ class UIEditor {
   }
 
   public syncImmediateClose(): void {
-    // Open? Cancel that animation!
+    // Cancel closing animation if it's open - prevent conflict
     if (this.main.classList.contains("glance-ui-editor-open")) return;
     this.main.classList.remove("glance-ui-editor-closing", "glance-ui-editor-opening", "glance-ui-editor-open")
     this.locked = true
