@@ -1,12 +1,30 @@
 :root {
-  --glance-close-anim-time: 200ms;
-  --glance-open-anim-time: 200ms;
+  --glance-close-anim-time: 250ms;
+  --glance-open-anim-time: 250ms;
+}
+
+/* Glance styles for builtin objects */
+
+button.glance {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 0;
+}
+button.glance-progressive {
+  color: #ffffff;
+  background-color: #3366cc;
+}
+
+.glance-vpush {
+  min-height: max-content;
+  height: 100%;
 }
 
 .glance-no-scroll {
   overflow: hidden;
 }
 
+/* Container */
 #glance-ui-editor {
   position: fixed;
   top: 0;
@@ -14,30 +32,38 @@
   bottom: 0;
   right: 0;
   display: none;
-  background-color: #80ffffb0;
+  background-color: #ffffffd0;  /* you should be barely able to see the page behind the editor */
+  font-family: sans-serif;
 }
 
 #glance-ui-editor:focus {
   outline: none;
 }
+#glance-ui-editor *:focus {
+  outline: revert;
+}
 
 @keyframes glance-ui-editor-open {
   from {
     opacity: 0%;
+    transform: scale(80%);
   }
 
   to {
     opacity: 100%;
+    transform: scale(100%);
   }
 }
 
 @keyframes glance-ui-editor-close {
   from {
     opacity: 100%;
+    transform: scale(100%);
   }
 
   to {
     opacity: 0%;
+    transform: scale(80%);
   }
 }
 
@@ -49,11 +75,39 @@
 #glance-ui-editor.glance-ui-editor-opening {
   display: block;
   z-index: 1001;
-  animation: var(--glance-open-anim-time) 0ms linear 1 forwards glance-ui-editor-open;
+  animation: var(--glance-open-anim-time) 0ms ease 1 glance-ui-editor-open;
 }
 
 #glance-ui-editor.glance-ui-editor-closing {
   display: block;
   z-index: 1001;
-  animation: var(--glance-close-anim-time) 0ms linear 1 forwards glance-ui-editor-close;
+  animation: var(--glance-close-anim-time) 0ms ease 1 glance-ui-editor-close;
+}
+
+/* Header */
+#glance-ui-editor #glance-ui-editor-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px 0px #000000;
+  /* t r b l */
+  padding: 0 0 0 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  font-size: 1.4rem;
+  gap: 10px;
+}
+
+#glance-ui-editor #glance-ui-editor-header > .glance-p {
+  /* t r b l */
+  margin: 10px 0 10px 0;
+}
+
+.glance-flex-fill {
+  flex-grow: 1;
 }
