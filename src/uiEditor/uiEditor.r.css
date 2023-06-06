@@ -14,6 +14,7 @@
   bottom: 0;
   right: 0;
   display: none;
+  background-color: #80ffffb0;
 }
 
 #glance-ui-editor:focus {
@@ -43,7 +44,6 @@
 #glance-ui-editor.glance-ui-editor-open {
   display: block;
   z-index: 1001;
-  background-color: #80ffffb0;
 }
 
 #glance-ui-editor.glance-ui-editor-opening {
