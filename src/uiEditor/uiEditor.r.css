@@ -20,6 +20,21 @@ button.glance {
 button.glance:hover {
   background-color: #eaecf0;
 }
+
+button.glance.glance-toggled {
+  background-color: #99bbff;
+}
+button.glance.glance-toggled:hover {
+  background-color: #6699ff;
+}
+
+button.glance.glance-icon {
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+}
 button.glance-progressive {
   color: #ffffff;
   background-color: #3366cc;
@@ -45,8 +60,13 @@ button.glance-progressive:hover {
   bottom: 0;
   right: 0;
   display: none;
-  background-color: #ffffffd0;  /* you should be barely able to see the page behind the editor */
+  background-color: #ffffff;
   font-family: sans-serif;
+  transition: background-color 0.25s linear;
+}
+
+#glance-ui-editor.glance-ui-editor-translucent {
+  background-color: #ffffffd0;  /* you should be barely able to see the page behind the editor */
 }
 
 #glance-ui-editor:focus {

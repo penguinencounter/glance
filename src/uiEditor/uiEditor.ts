@@ -1,4 +1,5 @@
 import shared from "../shared";
+import editorConfiguration from "./editorConfiguration";
 import STYLESHEET from "./uiEditor.r.css"
 import SOURCE from "./uiEditor.r.html"
 
@@ -54,8 +55,19 @@ class UIEditor {
     if (this.locked) throw new Error("UIEditor is locked");
   }
 
+  private updateTranslucentBackground(): void {
+    const translucentButton = this.main.querySelector("#glance-ui-editor-toggle-translucency")
+    if (editorConfiguration.c.translucentBackground) {
+      translucentButton?.classList.add("glance-toggled")
+      this.main.classList.add("glance-ui-editor-translucent")
+    } else {
+      translucentButton?.classList.remove("glance-toggled")
+      this.main.classList.remove("glance-ui-editor-translucent")
+    }
+  }
+
   private constructor() {
-    // re-use existing DOM if it exists
+    // Loading: DOM init phase
     const existing = document.getElementById("glance-ui-editor") as HTMLDivElement
     if (existing) {
       throw new Error("UIEditor already initialized, cannot create new instance")
@@ -63,6 +75,16 @@ class UIEditor {
       this.main = UIEditor.initDOM()
     }
     this.main.addEventListener("keydown", this.overflowKeyDownHandler.bind(this))
+
+    // Loading: JS-DOM setup phase
+    editorConfiguration.loadStoredConfig()
+    this.updateTranslucentBackground();
+    const translucentButton = this.main.querySelector("#glance-ui-editor-toggle-translucency")
+    translucentButton?.addEventListener("click", () => {
+      editorConfiguration.c.translucentBackground = !editorConfiguration.c.translucentBackground
+      this.updateTranslucentBackground();
+      editorConfiguration.saveConfig()
+    })
   }
 
   public static get(): UIEditor {
@@ -93,7 +115,7 @@ class UIEditor {
     this.main.focus();
     this.locked = false
   }
-  
+
   public async open(instant?: boolean): Promise<void> {
     instant = instant || false;
     if (instant) {
