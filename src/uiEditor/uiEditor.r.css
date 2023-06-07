@@ -100,7 +100,6 @@ div.glance-popup-menu-item.glance-icon svg {
   /* Icon */
   aspect-ratio: 1/1;
   min-height: calc(100% - 10px);
-  margin: 5px;
 }
 div.glance-popup-menu-item.glance-icon span {
   padding: 10px 0;
