@@ -27,6 +27,10 @@ const OPEN_ANIM_VAR = "--glance-open-anim-time"
 
 let uiEditor: UIEditor | null = null
 
+type UIEditorEventPatch = {
+  consumed?: boolean
+}
+
 /**
  * This class represents a single UI editor instance.
  * The same instance is re-used for all UI editor invocations.
@@ -85,6 +89,30 @@ class UIEditor {
       this.updateTranslucentBackground();
       editorConfiguration.saveConfig()
     })
+
+    this.main.querySelectorAll(".glance-button .glance-popup-menu").forEach((_e) => {
+      _e.addEventListener("click", _event => {
+        const event = _event as MouseEvent & UIEditorEventPatch
+        // Prevent click events from bubbling up to the parent.
+        // The parent is *technically* the button that opens the menu.
+        // To avoid side effects of clicking on the menu, we stop the event from propagating.
+        event.preventDefault();
+        event.stopPropagation() 
+      })
+    })
+
+    this.main.querySelectorAll(".glance-button.glance-opens-popup-menu").forEach((_e) => {
+      const e = _e as HTMLElement;
+      const target = e.dataset.dropdownTarget;
+      if (target === undefined) return;
+      const popup = this.main.querySelector(`#${target}`);
+      if (popup === null) return;
+      e.addEventListener("click", event => {
+        popup.classList.toggle("glance-popup-open");
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    })
   }
 
   public static get(): UIEditor {
@@ -93,7 +121,7 @@ class UIEditor {
     return uiEditor = new UIEditor()
   }
 
-  private overflowKeyDownHandler(e: KeyboardEvent): void {
+  private overflowKeyDownHandler(e: KeyboardEvent & UIEditorEventPatch): void {
     console.info("keydown", e)
     if (this.locked) return; // ignore keypresses while locked
     let handled: boolean = false
@@ -136,6 +164,12 @@ class UIEditor {
     this.main.classList.remove("glance-ui-editor-closing", "glance-ui-editor-opening", "glance-ui-editor-open")
     document.body.classList.remove("glance-no-scroll")
     this.locked = true
+
+    // reset DOM elements that could persist across editor invocations
+    // don't break the editor by leaving it in a weird state
+    this.main.querySelectorAll(".glance-popup-menu").forEach((e) => {
+      e.classList.remove("glance-popup-open")
+    })
   }
 
   public async close(instant?: boolean): Promise<void> {

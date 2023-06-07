@@ -3,6 +3,12 @@
   --glance-open-anim-time: 250ms;
 }
 
+@media screen {
+  html.client-dark-mode .glance-invert-dark {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
 /* Glance styles for builtin objects */
 
 div.glance-button {
@@ -60,6 +66,7 @@ div.glance-popup {
   /* padding: 5px; */
   border-radius: 5px;
   overflow: clip;
+  display: none;
 }
 
 div.glance-popup.glance-popup-menu {
@@ -70,19 +77,45 @@ div.glance-popup.glance-popup-menu {
   min-width: 100%;
   width: max-content;
   height: max-content;
-  display: flex;
   flex-direction: column;
 }
 
-div.glance-popup-menu-item:not(.glance-icon) {
+@keyframes glance-open-popup-menu {
+  from {
+    top: calc(100% - 20px);
+    opacity: 0%;
+  }
+  to {
+    top: calc(100% + 5px);
+    opacity: 100%;
+  }
+}
+div.glance-popup.glance-popup-menu.glance-popup-open {
+  display: flex;
+  animation: var(--glance-open-anim-time) 0ms ease 1 glance-open-popup-menu;
+}
+
+div.glance-popup-menu-item {
+  background-color: #ffffff;
   min-width: calc(100% - 10px);
   width: max-content;
+  transition: background-color 100ms linear;
+}
+
+div.glance-popup-menu-item:not(.glance-icon) {
   padding: 10px;
-  background-color: #ffffff;
 }
 div.glance-popup-menu-item:hover {
   background-color: #eaecf0;
 }
+
+div.glance-popup-menu-item.glance-toggled {
+  background-color: #99bbff;
+}
+div.glance-popup-menu-item.glance-toggled:hover {
+  background-color: #6699ff;
+}
+
 div.glance-popup-menu-item + div.glance-popup-menu-item {
   border-top: 1px solid #000000;
 }
