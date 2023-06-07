@@ -2,10 +2,19 @@
 <!-- Transcluded into the TypeScript source. -->
 <div id="glance-ui-editor-header">
   <b class="glance-p">UI Editor</b>
-  <button class="glance glance-vpush">File</button>
-  <button class="glance glance-vpush">Edit</button>
+  <div class="glance-button glance-vpush">Edit</div>
+  <div class="glance-button glance-vpush" data-dropdown-target="glance-ui-editor-view-menu">
+    View
+    <div class="glance-popup glance-popup-menu" id="glance-ui-editor-view-menu">
+      <button>Content</button>
+      <button>Content</button>
+      <button>Content</button>
+      <button>Content</button>
+      <button>Content</button>
+    </div>
+  </div>
   <div class="glance-flex-fill"></div>
-  <button class="glance glance-icon glance-vpush" id="glance-ui-editor-toggle-translucency"
+  <div class="glance-button glance-icon glance-vpush" id="glance-ui-editor-toggle-translucency"
     title="Editor background translucency">
     <svg width="32" height="32" viewBox="0 0 8.4666661 8.4666661" version="1.1" id="svg5"
       xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -38,6 +47,6 @@
           d="m 6.3499999,0 v 2.1166666 c 0,0 2.1166664,0 2.1166664,0 V 0 Z" id="path10162-2-4-6-7-9-0" />
       </g>
     </svg>
-  </button>
-  <button class="glance glance-progressive glance-vpush">Save and exit</button>
+  </div>
+  <div class="glance-button glance-progressive glance-vpush">Save and exit</button>
 </div>

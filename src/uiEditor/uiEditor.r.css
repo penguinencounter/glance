@@ -5,8 +5,8 @@
 
 /* Glance styles for builtin objects */
 
-button.glance {
-  display: inline-block;
+div.glance-button {
+  display: flex;
   padding: 10px 12px;
   border: 0;
   border-radius: 0;
@@ -16,40 +16,67 @@ button.glance {
   font-family: sans-serif;
   font-size: 14px;
   transition: background-color 100ms linear;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
-button.glance:hover {
+div.glance-button:hover {
   background-color: #eaecf0;
 }
 
-button.glance.glance-toggled {
+div.glance-button.glance-toggled {
   background-color: #99bbff;
 }
-button.glance.glance-toggled:hover {
+div.glance-button.glance-toggled:hover {
   background-color: #6699ff;
 }
 
-button.glance.glance-icon {
+div.glance-button.glance-icon {
   padding: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
   aspect-ratio: 1/1;
 }
-button.glance-progressive {
+div.glance-button.glance-progressive {
   color: #ffffff;
   background-color: #3366cc;
 }
-button.glance-progressive:hover {
+div.glance-button.glance-progressive:hover {
   background-color: #1a3f99;
 }
 
 .glance-vpush {
-  min-height: 100%;
+  min-height: calc(100% - 20px);
   height: max-content;
 }
 
 .glance-no-scroll {
   overflow: hidden;
+}
+
+div.glance-popup {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px 0px #000000;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+div.glance-popup.glance-popup-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1000;
+  min-width: 100%;
+  width: max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: row; /* Yes, this is a `column` layout, but... */
+  flex-wrap: wrap; /* ...we want to wrap the items so we can get that sweet, sweet fill */
+}
+div.glance-popup.glance-popup-menu > * {
+  flex: 1 1 calc(100%);
 }
 
 /* Container */
