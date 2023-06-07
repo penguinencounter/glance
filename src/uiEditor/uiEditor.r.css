@@ -34,10 +34,8 @@ div.glance-button.glance-toggled:hover {
 
 div.glance-button.glance-icon {
   padding: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   aspect-ratio: 1/1;
+  min-height: calc(100% - 4px);
 }
 div.glance-button.glance-progressive {
   color: #ffffff;
@@ -59,8 +57,9 @@ div.glance-button.glance-progressive:hover {
 div.glance-popup {
   background-color: #ffffff;
   box-shadow: 0px 0px 10px 0px #000000;
-  padding: 5px;
+  /* padding: 5px; */
   border-radius: 5px;
+  overflow: clip;
 }
 
 div.glance-popup.glance-popup-menu {
@@ -72,12 +71,41 @@ div.glance-popup.glance-popup-menu {
   width: max-content;
   height: max-content;
   display: flex;
-  flex-direction: row; /* Yes, this is a `column` layout, but... */
-  flex-wrap: wrap; /* ...we want to wrap the items so we can get that sweet, sweet fill */
+  flex-direction: column;
 }
-div.glance-popup.glance-popup-menu > * {
-  flex: 1 1 calc(100%);
+
+div.glance-popup-menu-item:not(.glance-icon) {
+  min-width: calc(100% - 10px);
+  width: max-content;
+  padding: 10px;
+  background-color: #ffffff;
 }
+div.glance-popup-menu-item:hover {
+  background-color: #eaecf0;
+}
+div.glance-popup-menu-item + div.glance-popup-menu-item {
+  border-top: 1px solid #000000;
+}
+
+div.glance-popup-menu-item.glance-icon {
+  /* Item with icon side-by-side - icon on left, etc */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 10px;
+}
+div.glance-popup-menu-item.glance-icon svg {
+  /* Icon */
+  aspect-ratio: 1/1;
+  min-height: calc(100% - 10px);
+  margin: 5px;
+}
+div.glance-popup-menu-item.glance-icon span {
+  padding: 10px 0;
+}
+
 
 /* Container */
 #glance-ui-editor {
