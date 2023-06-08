@@ -1,4 +1,5 @@
 const path = require('path')
+const WebpackBar = require('webpackbar')
 
 module.exports = {
   entry: './src/index.js',
@@ -23,5 +24,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js']
-  }
+  },
+  plugins: [
+    new WebpackBar()
+  ]
 }
