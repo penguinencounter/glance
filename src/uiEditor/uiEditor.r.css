@@ -4,8 +4,8 @@
 }
 
 @media screen {
-  html.client-dark-mode .glance-invert-dark {
-    filter: invert(1) hue-rotate(180deg);
+  html.client-dark-mode .glance-no-dark {
+    filter: none;
   }
 }
 
