@@ -16,6 +16,10 @@ module.exports = {
         type: 'asset/source'
       },
       {
+        test: /\.svg/,
+        type: 'asset/source'
+      },
+      {
         test: /\.ts/,
         use: 'ts-loader',
         exclude: /node_modules/

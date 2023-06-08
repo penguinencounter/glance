@@ -2,3 +2,5 @@
 declare module "*.r.css"
 declare module "*.r.html"
 declare module "*.r.txt"
+
+declare module "*.svg"

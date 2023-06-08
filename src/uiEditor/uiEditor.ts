@@ -1,8 +1,13 @@
 import shared from "../shared";
-import editorConfiguration from "./editorConfiguration";
+import editorConfiguration from "./editorConfiguration"
 import STYLESHEET from "./uiEditor.r.css"
 import SOURCE from "./uiEditor.r.html"
+import icons from "./iconLibrary"
+if (icons["flex-direction_column"]) {} // prevent unused import warning. TODO: actually use the icons
 
+// Warning: flex layout `align-items` (cross axis) doesn't support `space-between` or `space-around`. Ever. `align-content` doesn't do what you think it does.
+// However, `justify-content` (main axis) does support `space-between` and `space-around`.
+// Make sure to do the validation stuffs!!
 
 
 const getCssVar = shared.cache(function (name: string): string {
