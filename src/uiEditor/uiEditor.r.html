@@ -2,7 +2,32 @@
 <!-- Transcluded into the TypeScript source. -->
 <div id="glance-ui-editor-header">
   <b class="glance-p">UI Editor</b>
-  <div class="glance-button glance-vpush">Edit</div>
+  <div class="glance-button glance-vpush glance-opens-popup-menu" data-dropdown-target="glance-ui-editor-edit-menu">
+    Edit
+    <div class="glance-popup glance-popup-menu" id="glance-ui-editor-edit-menu">
+      <div class="glance-popup-menu-item">
+        Cut
+      </div>
+      <div class="glance-popup-menu-item">
+        Copy
+      </div>
+      <div class="glance-popup-menu-item">
+        Paste
+      </div>
+      <div class="glance-popup-menu-item">
+        Duplicate
+      </div>
+      <div class="glance-popup-menu-item">
+        Repeat &lt;no action&gt;
+      </div>
+      <div class="glance-popup-menu-item">
+        Export...
+      </div>
+      <div class="glance-popup-menu-item">
+        Import...
+      </div>
+    </div>
+  </div>
   <div class="glance-button glance-vpush glance-opens-popup-menu" data-dropdown-target="glance-ui-editor-view-menu">
     View
     <div class="glance-popup glance-popup-menu" id="glance-ui-editor-view-menu">

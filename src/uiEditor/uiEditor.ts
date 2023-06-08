@@ -28,7 +28,7 @@ const OPEN_ANIM_VAR = "--glance-open-anim-time"
 let uiEditor: UIEditor | null = null
 
 type UIEditorEventPatch = {
-  consumed?: boolean
+  consumed?: true
 }
 
 /**
@@ -70,6 +70,12 @@ class UIEditor {
     }
   }
 
+  private closePopupMenus(): void {
+    this.main.querySelectorAll(".glance-popup-menu.glance-popup-open").forEach((e) => {
+      e.classList.remove("glance-popup-open")
+    })
+  }
+
   private constructor() {
     // Loading: DOM init phase
     const existing = document.getElementById("glance-ui-editor") as HTMLDivElement
@@ -79,6 +85,10 @@ class UIEditor {
       this.main = UIEditor.initDOM()
     }
     this.main.addEventListener("keydown", this.overflowKeyDownHandler.bind(this))
+    this.main.addEventListener("click", (e: MouseEvent & UIEditorEventPatch) => {
+      if (e.consumed) return;
+      this.closePopupMenus();
+    });
 
     // Loading: JS-DOM setup phase
     editorConfiguration.loadStoredConfig()
@@ -91,13 +101,16 @@ class UIEditor {
     })
 
     this.main.querySelectorAll(".glance-button .glance-popup-menu").forEach((_e) => {
-      _e.addEventListener("click", _event => {
-        const event = _event as MouseEvent & UIEditorEventPatch
+      _e.addEventListener("click", (event: Event & UIEditorEventPatch) => {
+        // const event = _event as MouseEvent & UIEditorEventPatch
+        if (event.consumed) {
+          return; // do not process
+        }
         // Prevent click events from bubbling up to the parent.
         // The parent is *technically* the button that opens the menu.
         // To avoid side effects of clicking on the menu, we stop the event from propagating.
         event.preventDefault();
-        event.stopPropagation() 
+        event.consumed = true;
       })
     })
 
@@ -107,10 +120,15 @@ class UIEditor {
       if (target === undefined) return;
       const popup = this.main.querySelector(`#${target}`);
       if (popup === null) return;
-      e.addEventListener("click", event => {
+      e.addEventListener("click", _event => {
+        const event = _event as MouseEvent & UIEditorEventPatch;
+        if (event.consumed) {
+          return; // do not process
+        }
+        this.closePopupMenus(); // close all other menus. only one can be open at a time.
         popup.classList.toggle("glance-popup-open");
         event.preventDefault();
-        event.stopPropagation();
+        event.consumed = true;
       });
     })
   }
@@ -123,6 +141,10 @@ class UIEditor {
 
   private overflowKeyDownHandler(e: KeyboardEvent & UIEditorEventPatch): void {
     console.info("keydown", e)
+    if (e.consumed) {
+      return; // do not process
+    }
+
     if (this.locked) return; // ignore keypresses while locked
     let handled: boolean = false
     if (e.key === "Escape") {
