@@ -1,5 +1,6 @@
 const path = require('path')
 const WebpackBar = require('webpackbar')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: './src/index.js',
@@ -30,6 +31,13 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   plugins: [
-    new WebpackBar()
-  ]
+    new WebpackBar(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
+    }),
+  ],
+  stats: {
+    modulesSpace: 9999,
+  }
 }
