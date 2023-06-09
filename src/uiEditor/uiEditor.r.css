@@ -147,13 +147,13 @@ div.glance-popup-menu-item.glance-icon span {
   bottom: 0;
   right: 0;
   display: none;
-  background-color: #ffffff;
+  background-color: #eeeeee;
   font-family: sans-serif;
   transition: background-color 0.25s linear;
 }
 
 #glance-ui-editor.glance-ui-editor-translucent {
-  background-color: #ffffffd0;  /* you should be barely able to see the page behind the editor */
+  background-color: #eeeeeed0;  /* you should be barely able to see the page behind the editor */
 }
 
 #glance-ui-editor:focus {
@@ -230,5 +230,47 @@ div.glance-popup-menu-item.glance-icon span {
 }
 
 .glance-flex-fill {
+  flex-grow: 1;
+}
+
+#glance-ui-editor-toolbox {
+  --width: min(100vw, 800px);
+  --top-height: 40px;
+  width: var(--width);
+  display: grid;
+  position: fixed;
+  min-height: var(--top-height);
+  top: calc(100vh - var(--top-height));
+  left: 50%;
+  margin-left: calc(var(--width) / -2);
+
+  /* grid stuff */
+  grid-template-rows: 
+    [header] var(--top-height)
+    [components] auto
+  ;
+
+  box-shadow: 0 10px 10px #000000;
+}
+
+#glance-ui-editor-toolbox-header {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+}
+
+#glance-ui-editor-toolbox-header > span {
+  /* font-size: 1.4rem; */
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+#glance-ui-editor-toolbox-header > .glance--texture {
+  height: 100%;
+  background: repeating-linear-gradient(-45deg, #ffffff, #ffffff 5px, #eeeeee 5px, #eeeeee 10px);
   flex-grow: 1;
 }
