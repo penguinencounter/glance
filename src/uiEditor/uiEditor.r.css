@@ -266,7 +266,7 @@ div.glance-popup-menu-item.glance-icon span {
     "components header"
   ;
 
-  box-shadow: 0 10px 10px #000000;
+  box-shadow: 0 0 10px #000000;
   transform: translateX(calc((100% - var(--right-width)) * -1));
   overflow: clip;
 }
@@ -283,7 +283,7 @@ div.glance-popup-menu-item.glance-icon span {
   align-items: center;
   gap: 10px;
   grid-area: header;
-  box-shadow: 0 5px 10px #000000;
+  box-shadow: 0 0 5px #000000;
   transition: background-color 100ms linear;
   z-index: 2;
 }
