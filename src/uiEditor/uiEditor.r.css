@@ -234,43 +234,66 @@ div.glance-popup-menu-item.glance-icon span {
 }
 
 #glance-ui-editor-toolbox {
-  --width: min(100vw, 800px);
-  --top-height: 40px;
-  width: var(--width);
+  --height: calc(min(100vh - 72px, 800px));
+  --right-width: 40px;
+  height: var(--height);
   display: grid;
   position: fixed;
-  min-height: var(--top-height);
-  top: calc(100vh - var(--top-height));
-  left: 50%;
-  margin-left: calc(var(--width) / -2);
+  min-width: var(--right-width);
+  left: 0;
+  top: 60px;
+
+  transition: transform 0.25s ease;
 
   /* grid stuff */
-  grid-template-rows: 
-    [header] var(--top-height)
-    [components] auto
+  grid-template-columns: 
+    auto
+    var(--right-width)
+  ;
+
+  grid-template-areas: 
+    "components header"
   ;
 
   box-shadow: 0 10px 10px #000000;
+  transform: translateX(calc((100% - var(--right-width)) * -1));
+  overflow: clip;
+}
+
+#glance-ui-editor-toolbox:hover, #glance-ui-editor-toolbox:focus, #glance-ui-editor-toolbox.glance--pinned {
+  transform: translateX(0);
 }
 
 #glance-ui-editor-toolbox-header {
   background-color: #ffffff;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
   padding: 5px;
+  grid-area: header;
 }
 
 #glance-ui-editor-toolbox-header > span {
   /* font-size: 1.4rem; */
   font-weight: bold;
-  margin-left: 5px;
+  margin-top: 5px;
+  writing-mode: vertical-lr;
 }
 
 #glance-ui-editor-toolbox-header > .glance--texture {
-  height: 100%;
+  width: 100%;
   background: repeating-linear-gradient(-45deg, #ffffff, #ffffff 5px, #eeeeee 5px, #eeeeee 10px);
   flex-grow: 1;
+}
+
+#glance-ui-editor-toolbox-contents {
+  grid-area: components;
+  background-color: #eeeeee;
+  padding: 5px;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  width: max-content;
 }
