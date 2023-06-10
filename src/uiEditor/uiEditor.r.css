@@ -149,7 +149,7 @@ div.glance-popup-menu-item.glance-icon span {
   display: none;
   background-color: #eeeeee;
   font-family: sans-serif;
-  transition: background-color 0.25s linear;
+  transition: background-color 100ms linear;
 }
 
 #glance-ui-editor.glance-ui-editor-translucent {
@@ -274,6 +274,7 @@ div.glance-popup-menu-item.glance-icon span {
   padding: 5px;
   grid-area: header;
   box-shadow: 0 5px 10px #000000;
+  transition: background-color 100ms linear;
   z-index: 2;
 }
 
