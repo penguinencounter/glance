@@ -273,6 +273,8 @@ div.glance-popup-menu-item.glance-icon span {
   gap: 10px;
   padding: 5px;
   grid-area: header;
+  box-shadow: 0 5px 10px #000000;
+  z-index: 2;
 }
 
 #glance-ui-editor-toolbox-header > span {
@@ -290,8 +292,8 @@ div.glance-popup-menu-item.glance-icon span {
 
 #glance-ui-editor-toolbox-contents {
   grid-area: components;
-  background-color: #eeeeee;
-  padding: 5px;
+  background-color: #ffffff;
+  padding: 10px;
   min-height: 100%;
   box-sizing: border-box;
   overflow-y: auto;
