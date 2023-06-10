@@ -42,7 +42,6 @@ div.glance-button.glance-toggled:hover {
 div.glance-button.glance-icon {
   padding: 2px;
   aspect-ratio: 1/1;
-  min-height: calc(100% - 4px);
 }
 div.glance-button.glance-progressive {
   color: #ffffff;
@@ -56,10 +55,16 @@ div.glance-button.glance-progressive:hover {
   min-height: calc(100% - 20px);
   height: max-content;
 }
+div.glance-button.glance-icon.glance-vpush {
+  min-height: calc(100% - 4px);
+}
 
 .glance-hpush {
   min-width: calc(100% - 20px);
   width: max-content;
+}
+div.glance-button.glance-icon.glance-hpush {
+  min-width: calc(100% - 4px);
 }
 
 .glance-no-scroll {
@@ -288,11 +293,11 @@ div.glance-popup-menu-item.glance-icon span {
   font-weight: bold;
   margin-top: 5px;
   writing-mode: vertical-lr;
-  margin: 5px 5px 0 5px;
+  margin: 10px 5px 0 5px;
 }
 
 #glance-ui-editor-toolbox-header > .glance--texture {
-  width: 100%;
+  width: calc(100% - 10px);
   background: repeating-linear-gradient(-45deg, #ffffff, #ffffff 5px, #eeeeee 5px, #eeeeee 10px);
   flex-grow: 1;
   margin: 0 5px;
