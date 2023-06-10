@@ -303,8 +303,8 @@ div.glance-popup-menu-item.glance-icon span {
   margin: 0 5px;
 }
 
-#glance-ui-editor-toolbox-header > .glance--pin-button {
-  background: repeating-linear-gradient(-45deg, #eeeeee, #eeeeee 5px, #ffffff 5px, #ffffff 10px);
+#glance-ui-editor-pin-toolbox > svg {
+  transform: rotate(90deg);
 }
 
 #glance-ui-editor-toolbox-contents {
