@@ -18,7 +18,8 @@ function loadStoredConfig(allowReloads?: boolean) {
     for (const key of Object.keys(storedConfiguration)) {
       type possibleKeys = keyof typeof currentConfiguration
       let value = storedConfiguration[key]
-      if (value === undefined) continue;  // TS weirdness. Theoretically this should never happen from Object.keys
+      // Yes, this is a real thing that can happen. Value === undefined is not the same as the key not existing.
+      if (value === undefined) continue;
       currentConfiguration[key as possibleKeys] = value
     }
   } catch (e) {

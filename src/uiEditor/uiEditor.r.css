@@ -315,4 +315,16 @@ div.glance-popup-menu-item.glance-icon span {
   box-sizing: border-box;
   overflow-y: auto;
   width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.glance-ui-editor-toolbox-section-header {
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+  color: #888;
 }
