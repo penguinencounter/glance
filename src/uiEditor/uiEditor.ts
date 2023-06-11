@@ -94,7 +94,7 @@ class UIEditor {
   }
 
   private constructor() {
-    // Loading: DOM init phase
+    // Loading: DOM init
     const existing = document.getElementById("glance-ui-editor") as HTMLDivElement
     if (existing) {
       throw new Error("UIEditor already initialized, cannot create new instance")
@@ -107,9 +107,12 @@ class UIEditor {
       this.closePopupMenus();
     });
 
-    // Loading: JS-DOM setup phase
+    // Loading: Restore persistent data
     editorConfiguration.loadStoredConfig()
     this.updateTranslucentBackground();
+    this.updateToolboxPinned();
+
+    // Loading: Event handlers
     const translucentButton = this.main.querySelector("#glance-ui-editor-toggle-translucency")
     translucentButton?.addEventListener("click", () => {
       editorConfiguration.c.translucentBackground = !editorConfiguration.c.translucentBackground
