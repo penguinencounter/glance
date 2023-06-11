@@ -326,5 +326,37 @@ div.glance-popup-menu-item.glance-icon span {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.8rem;
-  color: #444444;
+  color: #888888;
+}
+
+.glance-ui-editor-toolbox-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 100%;
+  width: max-content;
+}
+
+.glance-ui-editor-toolbox-section > div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: max-content;
+  width: 100%;
+  background-color: #ffffff;
+  transition: background-color 100ms linear;
+}
+
+.glance-ui-editor-toolbox-section > div:hover {
+  background-color: #eeeeee;
+}
+
+.glance-ui-editor-toolbox-section > div > .glance-icon {
+  display: flex;
+  padding: 2px;
+  aspect-ratio: 1/1;
+  align-items: center;
+  justify-content: center;
 }
