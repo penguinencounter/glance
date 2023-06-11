@@ -75,6 +75,18 @@ class UIEditor {
     }
   }
 
+  private updateToolboxPinned(): void {
+    const toolbox = this.main.querySelector("#glance-ui-editor-toolbox")
+    const pinToolboxButton = this.main.querySelector("#glance-ui-editor-pin-toolbox")
+    if (editorConfiguration.c.toolboxPinned) {
+      toolbox?.classList.add("glance--pinned")
+      pinToolboxButton?.classList.add("glance-toggled")
+    } else {
+      toolbox?.classList.remove("glance--pinned")
+      pinToolboxButton?.classList.remove("glance-toggled")
+    }
+  }
+
   private closePopupMenus(): void {
     this.main.querySelectorAll(".glance-popup-menu.glance-popup-open").forEach((e) => {
       e.classList.remove("glance-popup-open")
@@ -104,6 +116,13 @@ class UIEditor {
       this.updateTranslucentBackground();
       editorConfiguration.saveConfig()
     })
+
+    const pinToolboxButton = this.main.querySelector("#glance-ui-editor-pin-toolbox")
+    pinToolboxButton?.addEventListener("click", () => {
+      editorConfiguration.c.toolboxPinned = !editorConfiguration.c.toolboxPinned
+      this.updateToolboxPinned();
+      editorConfiguration.saveConfig()
+    });
 
     this.main.querySelectorAll(".glance-button .glance-popup-menu").forEach((_e) => {
       _e.addEventListener("click", (event: Event & UIEditorEventPatch) => {

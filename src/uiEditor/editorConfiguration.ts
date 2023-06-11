@@ -4,6 +4,7 @@ type OptionalTranformer<T> = {
 
 let currentConfiguration = {
   translucentBackground: false,
+  toolboxPinned: false,
 }
 
 function loadStoredConfig(allowReloads?: boolean) {
