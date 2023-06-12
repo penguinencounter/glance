@@ -310,7 +310,6 @@ div.glance-popup-menu-item.glance-icon span {
 #glance-ui-editor-toolbox-contents {
   grid-area: components;
   background-color: #ffffff;
-  padding: 10px;
   min-height: 100%;
   box-sizing: border-box;
   overflow-y: auto;
@@ -326,6 +325,7 @@ div.glance-popup-menu-item.glance-icon span {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.8rem;
+  margin: 0 10px;
   color: #888888;
 }
 
@@ -346,7 +346,9 @@ div.glance-popup-menu-item.glance-icon span {
   min-width: max-content;
   width: 100%;
   background-color: #ffffff;
+  user-select: none;
   transition: background-color 100ms linear;
+  cursor: grab;
 }
 
 .glance-ui-editor-toolbox-section > div:hover {
