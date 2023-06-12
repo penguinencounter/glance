@@ -319,6 +319,7 @@ div.glance-popup-menu-item.glance-icon span {
   gap: 5px;
   align-items: flex-start;
   justify-content: flex-start;
+  padding: 10px 0;
 }
 
 .glance-ui-editor-toolbox-section-header {
@@ -349,6 +350,9 @@ div.glance-popup-menu-item.glance-icon span {
   user-select: none;
   transition: background-color 100ms linear;
   cursor: grab;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
 }
 
 .glance-ui-editor-toolbox-section > div:hover {
