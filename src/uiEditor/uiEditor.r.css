@@ -333,7 +333,7 @@ div.glance-popup-menu-item.glance-icon span {
 .glance-ui-editor-toolbox-section {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
   min-width: 100%;
   width: max-content;
 }
@@ -350,8 +350,7 @@ div.glance-popup-menu-item.glance-icon span {
   user-select: none;
   transition: background-color 100ms linear;
   cursor: grab;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 3px 10px;
   box-sizing: border-box;
 }
 
