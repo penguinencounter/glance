@@ -39,9 +39,13 @@ GlanceOptions.static.actions = [
 GlanceOptions.prototype.initialize = function () {
   GlanceOptions.super.prototype.initialize.apply(this, arguments)
   this.mainLayout = new OO.ui.FieldsetLayout()
-
+  this.mainLayout.addItems([
+    new OO.ui.LabelWidget( {
+      label: 'Listings',
+    })
+  ])
   this.debugLaunchUiEditor = new OO.ui.ButtonWidget({
-    label: 'Launch UI editor (dev)'
+    label: 'Edit appearance in UI editor'
   })
   this.debugLaunchUiEditor.on('click', () => {
     uiEditor.UIEditor.get().open();
