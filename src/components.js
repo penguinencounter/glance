@@ -43,7 +43,7 @@ GlanceOptions.prototype.initialize = function () {
   })
   this.debugLaunchUiEditor = new OO.ui.ButtonWidget({
     label: 'Edit appearance in UI editor',
-    icon: 'arrowNext',
+    icon: 'tag',
     flags: ['progressive']
   })
   this.debugLaunchUiEditor.on('click', () => {
