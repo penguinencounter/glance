@@ -270,6 +270,8 @@ div.glance-popup-menu-item.glance-icon span {
   box-shadow: 0 0 10px #000000;
   transform: translateX(calc((100% - var(--right-width)) * -1));
   overflow: clip;
+
+  z-index: 99; /* below: header */
 }
 
 #glance-ui-editor-toolbox:hover, #glance-ui-editor-toolbox:focus, #glance-ui-editor-toolbox.glance--pinned {
