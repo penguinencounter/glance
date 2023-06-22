@@ -46,7 +46,7 @@ GlanceOptions.prototype.initialize = function () {
     label: 'Single-user listings (contributions)',
   })
   this.editContribsBtn = new OO.ui.ButtonWidget({
-    label: 'Edit appearance in UI editor',
+    label: 'Launch UI editor',
     icon: 'arrowNext',
     flags: ['progressive']
   })
