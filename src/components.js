@@ -59,8 +59,8 @@ GlanceOptions.prototype.initialize = function () {
   ])
 
   this.mainLayout.addItems([
-    new OO.ui.FieldLayout(this.meters),
-    new OO.ui.FieldLayout(this.contribs)
+    this.meters,
+    this.contribs
   ])
 
   this.windowContainer = new OO.ui.PanelLayout({
