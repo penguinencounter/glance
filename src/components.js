@@ -38,20 +38,29 @@ GlanceOptions.static.actions = [
 
 GlanceOptions.prototype.initialize = function () {
   GlanceOptions.super.prototype.initialize.apply(this, arguments)
-  this.mainLayout = new OO.ui.FieldsetLayout({
-    label: 'Action listings',
+  this.mainLayout = new OO.ui.FieldsetLayout()
+  this.meters = new OO.ui.FieldsetLayout({
+    label: 'Meter styles',
   })
-  this.debugLaunchUiEditor = new OO.ui.ButtonWidget({
+  this.contribs = new OO.ui.FieldsetLayout({
+    label: 'Single-user listings (contributions)',
+  })
+  this.editContribsBtn = new OO.ui.ButtonWidget({
     label: 'Edit appearance in UI editor',
     icon: 'arrowNext',
     flags: ['progressive']
   })
-  this.debugLaunchUiEditor.on('click', () => {
+  this.editContribsBtn.on('click', () => {
     uiEditor.UIEditor.get().open();
     this.close();
   })
+  this.contribs.addItems([
+    new OO.ui.FieldLayout(this.editContribsBtn)
+  ])
+
   this.mainLayout.addItems([
-    new OO.ui.FieldLayout(this.debugLaunchUiEditor)
+    new OO.ui.FieldLayout(this.meters),
+    new OO.ui.FieldLayout(this.contribs)
   ])
 
   this.windowContainer = new OO.ui.PanelLayout({

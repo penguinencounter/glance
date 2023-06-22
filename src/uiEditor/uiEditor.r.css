@@ -1,6 +1,7 @@
 :root {
   --glance-close-anim-time: 250ms;
   --glance-open-anim-time: 250ms;
+  --header-height: 48px;
 }
 
 @media screen {
@@ -232,7 +233,7 @@ div.glance-popup-menu-item.glance-icon span {
   z-index: 100;
   font-size: 1.4rem;
 
-  height: 48px;
+  height: var(--header-height);
 }
 
 #glance-ui-editor #glance-ui-editor-header > .glance-p {
@@ -364,4 +365,16 @@ div.glance-popup-menu-item.glance-icon span {
   aspect-ratio: 1/1;
   align-items: center;
   justify-content: center;
+}
+
+#glance-ui-editor-viewport {
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
