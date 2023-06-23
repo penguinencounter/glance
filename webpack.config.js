@@ -1,6 +1,7 @@
 const path = require('path')
 const WebpackBar = require('webpackbar')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyPlugin = require("copy-webpack-plugin")
 
 module.exports = {
   entry: './src/index.js',
@@ -35,6 +36,11 @@ module.exports = {
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       openAnalyzer: false,
+    }),
+    new CopyPlugin({
+      patterns: [
+        "src/mw-modules.json"
+      ]
     }),
   ],
   stats: {
