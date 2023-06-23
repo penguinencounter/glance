@@ -43,6 +43,10 @@ $(function() {
   var latestBuildURL = "https://penguinencounter.github.io/glance/main.js";
   var moduleURL = "https://penguinencounter.github.io/glance/mw-modules.json";
   function init(modules) {
+    var s = "[Glance] Using the following MediaWiki modules: ";
+    modules.forEach(function(el) { s += el + ", "; });
+    s = s.substring(0, s.length - 2);
+    console.info(s);
     mw.loader.using(modules).then(function() {
       window.liveLoaderRefreshCache = function() {
         liveLoader.refreshCache().then(function(resp) {
@@ -58,10 +62,6 @@ $(function() {
 
   }
   fetch(moduleURL, {cache: "no-store"}).then(function(resp) { return resp.json(); }).then(function(json) {
-    var s = "[Glance] Using the following MediaWiki modules: ";
-    json.forEach(function(el) { s += el + ", "; });
-    s = s.substring(0, s.length - 2);
-    console.info(s);
     init(json);
   }).catch(function(err) {
     var DEFAULT_MW_LOADER_USES = [
