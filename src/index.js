@@ -11,7 +11,6 @@ import components from './components'
 
 export default function() {
   components.init()
-  console.info('Welcome to Glance!')
 
   const winMgr = new OO.ui.WindowManager()
   $(document.body).append(winMgr.$element)
