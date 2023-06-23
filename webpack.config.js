@@ -1,16 +1,14 @@
+// Webpack configuration for release channels
 const path = require('path')
 const WebpackBar = require('webpackbar')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require("copy-webpack-plugin")
+const merge = require('deepmerge')
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  mode: 'development',
-  // devtool: false,
+const mode = 'development'
+
+let common = {
+  mode: mode,
   module: {
     rules: [
       {
@@ -19,6 +17,10 @@ module.exports = {
       },
       {
         test: /\.svg/,
+        type: 'asset/source'
+      },
+      {
+        test: /\.json/,
         type: 'asset/source'
       },
       {
@@ -33,10 +35,10 @@ module.exports = {
   },
   plugins: [
     new WebpackBar(),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      openAnalyzer: false,
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   openAnalyzer: false,
+    // }),
     new CopyPlugin({
       patterns: [
         "src/mw-modules.json"
@@ -47,3 +49,21 @@ module.exports = {
     modulesSpace: 9999,
   }
 }
+
+let targetLiveLoader = {...common, ...{
+  entry: './src/instantBootloader.ts',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+}}
+
+let targetLinkedImport = {...common, ...{
+  entry: './src/prepBootloader.ts',
+  output: {
+    filename: 'linked.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+}}
+
+module.exports = [targetLiveLoader, targetLinkedImport]

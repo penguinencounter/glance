@@ -4,3 +4,4 @@ declare module "*.r.html"
 declare module "*.r.txt"
 
 declare module "*.svg"
+declare module "*.json"

@@ -9,31 +9,33 @@ import components from './components'
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui.js" />
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui-wikimediaui.js" />
 
-console.info('Welcome to Glance!')
+export default function() {
+  console.info('Welcome to Glance!')
 
-const winMgr = new OO.ui.WindowManager()
-$(document.body).append(winMgr.$element)
+  const winMgr = new OO.ui.WindowManager()
+  $(document.body).append(winMgr.$element)
 
-winMgr.addWindows([components.glanceOptions])
+  winMgr.addWindows([components.glanceOptions])
 
-// ready?
-$(() => {
-  // create sidebar
-  const sidebarItem = document.createElement('li')
-  const sidebarLink = document.createElement('a')
-  sidebarLink.innerHTML = 'Glance options'
-  sidebarLink.href = '#'
-  sidebarLink.addEventListener('click', e => {
-    e.preventDefault()
-    e.stopPropagation()
-    winMgr.openWindow(components.glanceOptions)
+  // ready?
+  $(() => {
+    // create sidebar
+    const sidebarItem = document.createElement('li')
+    const sidebarLink = document.createElement('a')
+    sidebarLink.innerHTML = 'Glance options'
+    sidebarLink.href = '#'
+    sidebarLink.addEventListener('click', e => {
+      e.preventDefault()
+      e.stopPropagation()
+      winMgr.openWindow(components.glanceOptions)
+    })
+
+    sidebarItem.appendChild(sidebarLink)
+    sidebarItem.classList.add('mw-list-item')
+    document.querySelector('#p-tb .vector-menu-content-list')?.appendChild(sidebarItem)
+
+    // initialize page manipulation - track type of page for patches
+    pageManip.ready()
+    metaFunctions.ready()
   })
-
-  sidebarItem.appendChild(sidebarLink)
-  sidebarItem.classList.add('mw-list-item')
-  document.querySelector('#p-tb .vector-menu-content-list')?.appendChild(sidebarItem)
-
-  // initialize page manipulation - track type of page for patches
-  pageManip.ready()
-  metaFunctions.ready()
-})
+}
