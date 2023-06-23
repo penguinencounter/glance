@@ -50,7 +50,8 @@ GlanceOptions.prototype.initialize = function () {
     });
     this.mainLayout.addItems([
       new OO.ui.FieldLayout(refreshCacheBtn, {
-        label: '(LiveLoader)'
+        label: 'LiveLoader integration',
+        align: 'top'
       })
     ])
   }
