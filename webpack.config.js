@@ -59,6 +59,7 @@ let targetLiveLoader = {...common, ...{
 }}
 
 let targetLinkedImport = {...common, ...{
+  mode: 'production',
   entry: './src/prepBootloader.ts',
   output: {
     filename: 'linked.js',
