@@ -10,6 +10,7 @@ import components from './components'
 /// <reference path="../node_modules/oojs-ui/dist/oojs-ui-wikimediaui.js" />
 
 export default function() {
+  components.init()
   console.info('Welcome to Glance!')
 
   const winMgr = new OO.ui.WindowManager()
