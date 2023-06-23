@@ -1,5 +1,5 @@
-import api from './api'
-import uiEditor from './uiEditor/uiEditor'
+// import api from './api'
+// import uiEditor from './uiEditor/uiEditor'
 import pageManip from './pageManip'
 import metaFunctions from './meta'
 import components from './components'
@@ -15,7 +15,7 @@ export default function() {
   const winMgr = new OO.ui.WindowManager()
   $(document.body).append(winMgr.$element)
 
-  winMgr.addWindows([components.glanceOptions])
+  winMgr.addWindows([components.getGlanceOptions()])
 
   // ready?
   $(() => {
@@ -27,7 +27,7 @@ export default function() {
     sidebarLink.addEventListener('click', e => {
       e.preventDefault()
       e.stopPropagation()
-      winMgr.openWindow(components.glanceOptions)
+      winMgr.openWindow(components.getGlanceOptions())
     })
 
     sidebarItem.appendChild(sidebarLink)

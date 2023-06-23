@@ -1,5 +1,5 @@
-import run from './index.js'
 import rawRequirements from './mw-modules.json'
+import run from './index.js'
 
 declare global {
   var mw: {
