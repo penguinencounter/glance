@@ -38,24 +38,39 @@ GlanceOptions.static.actions = [
 
 GlanceOptions.prototype.initialize = function () {
   GlanceOptions.super.prototype.initialize.apply(this, arguments)
+
   this.mainLayout = new OO.ui.FieldsetLayout()
+  if (window.liveLoaderRefreshCache) {
+    let refreshCacheBtn = new OO.ui.ButtonWidget({
+      label: 'Check for updates!',
+      icon: 'clock',
+    })
+    refreshCacheBtn.on('click', () => {
+      window.liveLoaderRefreshCache()
+    });
+    this.mainLayout.addItems([
+      new OO.ui.FieldLayout(refreshCacheBtn, {
+        label: '(LiveLoader)'
+      })
+    ])
+  }
   this.meters = new OO.ui.FieldsetLayout({
     label: 'Meter styles',
   })
   this.contribs = new OO.ui.FieldsetLayout({
     label: 'Single-user listings (contributions)',
   })
-  this.editContribsBtn = new OO.ui.ButtonWidget({
+  let editContribsBtn = new OO.ui.ButtonWidget({
     label: 'Launch UI editor',
     icon: 'arrowNext',
     flags: ['progressive']
   })
-  this.editContribsBtn.on('click', () => {
+  editContribsBtn.on('click', () => {
     uiEditor.UIEditor.get().open();
     this.close();
   })
   this.contribs.addItems([
-    new OO.ui.FieldLayout(this.editContribsBtn)
+    new OO.ui.FieldLayout(editContribsBtn)
   ])
 
   this.mainLayout.addItems([
