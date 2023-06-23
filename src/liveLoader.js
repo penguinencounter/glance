@@ -1,7 +1,7 @@
 // Use this file for live loading of the extension from GitHub.
 // You'll always have the latest features, but it's very unstable.
 
-// use liveLoaderRefreshCache() in the console to flush the cache and reload the page.
+// Use the button in Glance's options ('Check for updates!') to refresh the cache.
 
 /// <reference path="../node_modules/jquery/dist/jquery.js" />
 
