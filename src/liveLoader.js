@@ -45,7 +45,7 @@ $(function() {
     'oojs-ui-core',
     'oojs-ui-windows',
     'oojs-ui.styles.icons-movement',
-    'oojs-ui.styles.interactions'
+    'oojs-ui.styles.icons-interactions'
   ];
   
   mw.loader.using(MW_LOADER_USES).then(function() {

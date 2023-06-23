@@ -48,12 +48,11 @@ GlanceOptions.prototype.initialize = function () {
     refreshCacheBtn.on('click', () => {
       window.liveLoaderRefreshCache()
     });
-    this.mainLayout.addItems([
-      new OO.ui.FieldLayout(refreshCacheBtn, {
-        label: 'LiveLoader integration',
-        align: 'top'
-      })
-    ])
+    let tempFS = new OO.ui.FieldsetLayout({
+      label: 'LiveLoader integration'
+    })
+    tempFS.addItems([refreshCacheBtn])
+    this.mainLayout.addItems([tempFS])
   }
   this.meters = new OO.ui.FieldsetLayout({
     label: 'Meter styles',
