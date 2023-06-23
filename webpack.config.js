@@ -59,7 +59,7 @@ let targetLiveLoader = {...common, ...{
 }}
 
 let targetLinkedImport = {...common, ...{
-  mode: 'production',
+  devtool: 'inline-source-map',
   entry: './src/prepBootloader.ts',
   output: {
     filename: 'linked.js',
