@@ -43,6 +43,7 @@ jobs:
           name: channel-${{ matrix.channel }}
 
   deploy:
+    needs: build-channel
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
