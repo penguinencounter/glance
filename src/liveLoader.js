@@ -40,8 +40,8 @@ function mkLiveLoader() {
 
 $(function() {
   var liveLoader = mkLiveLoader();
-  var latestBuildURL = "https://penguinencounter.github.io/glance/main.js";
-  var moduleURL = "https://penguinencounter.github.io/glance/mw-modules.json";
+  var latestBuildURL = "https://penguinencounter.github.io/glance/channel-dev/main.js";
+  var moduleURL = "https://penguinencounter.github.io/glance/channel-dev/mw-modules.json";
   function init(modules) {
     var s = "[LiveLoader] Using the following MediaWiki modules:\n";
     modules.forEach(function(el) { s += "  " + el + "\n"; });
