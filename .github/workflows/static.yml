@@ -3,7 +3,7 @@ name: Build & Deploy
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["dev"]
+    branches: ["dev", "beta", "stable"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,26 +21,43 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  build-channel:
+    strategy:
+      matrix:
+        channel: ["dev", "beta", "stable"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ matrix.channel }}
+      - name: Build
+        run: |
+          npm i
+          npx webpack
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          # Upload only built package
+          path: './dist'
+          name: channel-${{ matrix.channel }}
+
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build
-        run: |
-          npm i
-          npx webpack
+      - name: Pull down build results
+        uses: actions/download-artifact@v3
+        with:
+          path: './builds'
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload only built package
-          path: './dist'
+          path: './builds'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
