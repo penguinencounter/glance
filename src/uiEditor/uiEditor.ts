@@ -2,6 +2,7 @@ import shared from "../shared";
 import editorConfiguration from "./editorConfiguration"
 import STYLESHEET from "./uiEditor.r.css"
 import SOURCE from "./uiEditor.r.html"
+import { WikipathType } from "../pagemods/structures";
 
 // Warning: flex layout `align-items` (cross axis) doesn't support `space-between` or `space-around`. Ever. `align-content` doesn't do what you think it does.
 // However, `justify-content` (main axis) does support `space-between` and `space-around`.
@@ -21,6 +22,7 @@ function timeToMillis(value: string): number {
 function injectStylesheet(content: string) {
   const style = document.createElement("style")
   style.textContent = content
+  style.classList.add("glance-injected-stylesheet")
   document.head.appendChild(style)
 }
 
@@ -190,7 +192,7 @@ class UIEditor {
     this.locked = false
   }
 
-  public async open(instant?: boolean): Promise<void> {
+  public async open(target: WikipathType, instant?: boolean): Promise<void> {
     instant = instant || false;
     if (instant) {
       this.main.classList.add("glance-ui-editor-open");

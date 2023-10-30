@@ -1,11 +1,7 @@
 import shared from './shared'
 import components from './components'
+import { WikipathType } from './pagemods/structures'
 
-enum WikipathType {
-  MIXED_USER_LISTING,
-  SINGLE_USER_LISTING,
-  DIFF,
-}
 const wikipathTypeMatchers: { [key in WikipathType]: Array<(loc: URL) => boolean> } = {
   [WikipathType.MIXED_USER_LISTING]: [
     (loc: URL) => loc.searchParams.get('action') === 'history',

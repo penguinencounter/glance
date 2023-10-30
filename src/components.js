@@ -1,3 +1,4 @@
+import { WikipathType } from "./pagemods/structures";
 import shared from "./shared";
 import uiEditor from "./uiEditor/uiEditor";
 
@@ -68,7 +69,7 @@ function initGlanceOptions() {
       flags: ['progressive']
     })
     editContribsBtn.on('click', () => {
-      uiEditor.UIEditor.get().open();
+      uiEditor.UIEditor.get().open(WikipathType.SINGLE_USER_LISTING);
       this.close();
     })
     this.contribs.addItems([

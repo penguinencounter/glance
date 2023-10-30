@@ -1,4 +1,3 @@
-import { Type } from "../../node_modules/typescript/lib/typescript";
 import iconLibrary from "./iconLibrary";
 
 // UIEditor Structured Data
