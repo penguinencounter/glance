@@ -221,6 +221,17 @@ function makePlaceholder(): InlineElement {
   }
 }
 
+function defaultSingleUser(): AbstractElement {
+  return {
+    autoPlaceholder: true,
+    children: [],
+    locked: EditorLock.PROPERTIES,
+    id: nextElId(),
+    display: "block",
+    ephemeral: false
+  }
+}
+
 export type {
   EditorLock,
   AbstractElement,
