@@ -36,7 +36,7 @@ interface AbstractElement {
   locked: EditorLock,
   /** Never save this element, and discard it if it has any siblings */
   ephemeral: boolean,
-  /** Insert a placeholder (ephemeral) element
+  /** Insert a ephemeral placeholder element
    * if this element is empty in the Editor */
   autoPlaceholder: boolean,
 }
@@ -222,13 +222,17 @@ function makePlaceholder(): InlineElement {
 }
 
 function defaultSingleUser(): AbstractElement {
-  return {
+  return <BlockElement>{
     autoPlaceholder: true,
     children: [],
     locked: EditorLock.PROPERTIES,
     id: nextElId(),
     display: "block",
-    ephemeral: false
+    ephemeral: false,
+    hLayout: BlockLayout.FILL,
+    hOverflow: BlockOverflow.AUTO,
+    vLayout: BlockLayout.SHRINK,
+    vOverflow: BlockOverflow.AUTO,
   }
 }
 
