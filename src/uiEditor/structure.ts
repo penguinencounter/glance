@@ -54,7 +54,7 @@ function nextElId(): string {
 }
 
 // exclude more parameters from the type by extending the second parameter to Exclude<>
-type ElementConfiguration<T, Not=never> = { [k in keyof T as Exclude<k, ("display" | Not)>]?: T[k]}
+type ElementConfiguration<T, Not = never> = { [k in keyof T as Exclude<k, ("display" | Not)>]?: T[k] }
 
 abstract class AbstractElement {
   id: string = nextElId();
@@ -138,6 +138,10 @@ class TextElement extends InlineElement {
   locked: EditorLock = EditorLock.CHILDREN;
   text: string = ""
 
+  override baseNode(): Node {
+    return document.createTextNode(this.text)
+  }
+
   // having children is banned D: (please don't take this out of context)
   constructor(configure: ElementConfiguration<TextElement, "children">) {
     super(configure);
@@ -176,6 +180,37 @@ class FlexContainer extends BlockElement {
   constructor(configure: ElementConfiguration<FlexContainer>) {
     super(configure);
     Object.assign(this, configure);
+  }
+
+  protected override applyProps(assignee: HTMLElement): void {
+    super.applyProps(assignee);
+    assignee.style.flexDirection = e2css.flexDirection(this.direction, this.reverse);
+    assignee.style.flexWrap = e2css.flexWrap(this.wrap);
+
+    switch (this.direction) {
+      case FlexDirection.ROW:
+        // justify-content goes left-to-right
+        // align-items goes top-to-bottom
+        if (this.vJustify == FlexJustify.SPACE_AROUND || this.vJustify == FlexJustify.SPACE_BETWEEN) {
+          // Illegal option.
+          // FIXME: Don't abort building the element and instead use a sensible default and error styling.
+          throw new Error("Illegal option: vertical justify cannot be space-around or space-between in a horizontal flex container");
+        } else {
+          assignee.style.alignItems = e2css.justify(this.vJustify);
+        }
+        assignee.style.justifyContent = e2css.justify(this.hJustify);
+        break
+      case FlexDirection.COLUMN:
+        // justify-content goes top-to-bottom
+        // align-items goes left-to-right
+        if (this.hJustify == FlexJustify.SPACE_AROUND || this.hJustify == FlexJustify.SPACE_BETWEEN) {
+          // Illegal option.
+          throw new Error("Illegal option: horizontal justify cannot be space-around or space-between in a vertical flex container");
+        } else {
+          assignee.style.alignItems = e2css.justify(this.hJustify);
+        }
+        assignee.style.justifyContent = e2css.justify(this.vJustify);
+    }
   }
 }
 
@@ -254,12 +289,32 @@ const e2n = {
 const e2css = {
   overflow: (overflow: BlockOverflow): string => {
     switch (overflow) {
-      case BlockOverflow.AUTO:
-        return "auto";
-      case BlockOverflow.CLIP:
-        return "clip";
-      case BlockOverflow.VISIBLE:
-        return "visible";
+      case BlockOverflow.AUTO: return "auto";
+      case BlockOverflow.CLIP: return "clip";
+      case BlockOverflow.VISIBLE: return "visible";
+    }
+  },
+  flexDirection: (flexDirection: FlexDirection, reverse: boolean): string => {
+    const tac = reverse ? "-reverse" : ""
+    switch (flexDirection) {
+      case FlexDirection.ROW: return "row" + tac
+      case FlexDirection.COLUMN: return "column" + tac
+    }
+  },
+  flexWrap: (flexWrap: FlexWrap): string => {
+    switch (flexWrap) {
+      case FlexWrap.NOWRAP: return "nowrap"
+      case FlexWrap.WRAP: return "wrap"
+      case FlexWrap.REVERSE: return "wrap-reverse"
+    }
+  },
+  justify: (justify: FlexJustify): string => {
+    switch (justify) {
+      case FlexJustify.FLEX_START: return "flex-start"
+      case FlexJustify.FLEX_END: return "flex-end"
+      case FlexJustify.CENTER: return "center"
+      case FlexJustify.SPACE_BETWEEN: return "space-between"
+      case FlexJustify.SPACE_AROUND: return "space-around"
     }
   }
 } as const
@@ -343,8 +398,14 @@ export default {
   Direction,
   BlockOverflow,
   BlockLayout,
+  AbstractElement,
+  BlockElement,
+  InlineElement,
+  TextElement,
   FlexDirection,
   FlexWrap,
   FlexJustify,
-  getIcon
+  FlexContainer,
+  makePlaceholder,
+  defaultSingleUser,
 }

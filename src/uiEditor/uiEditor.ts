@@ -218,6 +218,9 @@ class UIEditor {
     this.main.querySelectorAll(".glance-popup-menu").forEach((e) => {
       e.classList.remove("glance-popup-open")
     })
+    // throw out the viewport contents
+    let viewport = this.main.querySelector("#glance-ui-editor-viewport")
+    if (viewport) viewport.innerHTML = ""
   }
 
   public async close(instant?: boolean): Promise<void> {
