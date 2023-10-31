@@ -1,3 +1,4 @@
+import { ObjectConfiguration } from "../shared";
 import iconLibrary from "./iconLibrary";
 
 // UIEditor Structured Data
@@ -26,32 +27,125 @@ enum BlockLayout {
   FIXED
 }
 
-interface AbstractElement {
-  // HTML visual attributes
-  id: string,
-  display: "block" | "flex" | "grid" | "inline",
-  children: (AbstractElement)[],
 
-  // Editor attributes
-  locked: EditorLock,
-  /** Never save this element, and discard it if it has any siblings */
-  ephemeral: boolean,
-  /** Insert a ephemeral placeholder element
-   * if this element is empty in the Editor */
-  autoPlaceholder: boolean,
+let usedIds: string[] = [];
+let nextIdIdx = 0;
+function id2str(id: number): string {
+  // spreadsheet-style ids (a, b, c, ..., y, z, aa, ab, ac, ..., az, ba, bb, ...)
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const alphabetLen = alphabet.length;
+  let str = "";
+  while (id >= alphabetLen) {
+    str += alphabet[id % alphabetLen];
+    id = Math.floor(id / alphabetLen) - 1;
+  }
+  str += alphabet[id];
+  str = str.split('').reverse().join('');
+  return str;
+}
+function nextElId(): string {
+  while (true) {
+    const id = id2str(nextIdIdx++);
+    if (!usedIds.includes(id)) {
+      usedIds.push(id);
+      return id;
+    }
+  }
 }
 
-interface BlockElement extends AbstractElement {
-  display: "block" | "flex" | "grid",
-  children: (InlineElement | BlockElement)[],
-  hOverflow: BlockOverflow,
-  vOverflow: BlockOverflow,
-  hLayout: BlockLayout,
-  vLayout: BlockLayout,
+// exclude more parameters from the type by extending the second parameter to Exclude<>
+type ElementConfiguration<T, Not=never> = { [k in keyof T as Exclude<k, ("display" | Not)>]?: T[k]}
+
+abstract class AbstractElement {
+  id: string = nextElId();
+  readonly abstract display: "block" | "flex" | "grid" | "inline";
+  children: AbstractElement[] = [];
+  locked: EditorLock = EditorLock.NONE;
+  ephemeral: boolean = false;
+  autoPlaceholder: boolean = false;
+
+  constructor(configure: ElementConfiguration<AbstractElement>) {
+    Object.assign(this, configure);
+  }
+
+  abstract baseNode(): Node
+  build(replace?: Node): Node {
+    let node = this.baseNode()
+    if (node instanceof HTMLElement) {
+      this.applyProps(node);
+    }
+    for (const child of this.children) {
+      node.appendChild(child.baseNode());
+    }
+    if (replace) {
+      if (replace instanceof HTMLElement) {
+        // use the handy API
+        replace.replaceWith(node)
+      } else {
+        // uhhh
+        // replaceChild(new, old) (this is backwards. JS is weird)
+        if (replace.parentNode) replace.parentNode.replaceChild(node, replace)
+        else throw new Error("Can't replace node: parent node is missing for some reason")
+      }
+    }
+    return node
+  }
+  protected applyProps(assignee: HTMLElement) {
+    assignee.dataset.glanceId = this.id;
+    assignee.style.display = this.display;
+  }
 }
-interface InlineElement extends AbstractElement {
-  display: "inline",
-  children: InlineElement[],
+
+class BlockElement extends AbstractElement {
+  // mimic a <div>
+  readonly display: "block" | "flex" | "grid" = "block"
+  children: (InlineElement | BlockElement)[] = []
+  hOverflow: BlockOverflow = BlockOverflow.AUTO
+  vOverflow: BlockOverflow = BlockOverflow.AUTO
+  hLayout: BlockLayout = BlockLayout.FILL
+  vLayout: BlockLayout = BlockLayout.SHRINK
+
+  constructor(configure: ElementConfiguration<BlockElement>) {
+    super(configure);
+    Object.assign(this, configure);
+  }
+
+  override baseNode(): Node {
+    return document.createElement("div");
+  }
+  protected override applyProps(assignee: HTMLElement) {
+    super.applyProps(assignee)
+    assignee.style.overflowX = e2css.overflow(this.hOverflow);
+    assignee.style.overflowY = e2css.overflow(this.vOverflow);
+  }
+}
+class InlineElement extends AbstractElement {
+  readonly display = "inline"
+  children: InlineElement[] = []
+
+  constructor(configure: ElementConfiguration<InlineElement>) {
+    super(configure);
+    // does this even do anything?
+    Object.assign(this, configure);
+  }
+
+  override baseNode(): Node {
+    return document.createElement("span");
+  }
+}
+class TextElement extends InlineElement {
+  readonly children = []
+  locked: EditorLock = EditorLock.CHILDREN;
+  text: string = ""
+
+  // having children is banned D: (please don't take this out of context)
+  constructor(configure: ElementConfiguration<TextElement, "children">) {
+    super(configure);
+    Object.assign(this, configure);
+
+    // no we are not letting you unlock it
+    this.locked |= EditorLock.CHILDREN;
+  }
 }
 
 enum FlexDirection {
@@ -71,13 +165,18 @@ enum FlexJustify {
   SPACE_AROUND,
 }
 
-interface FlexContainer extends BlockElement {
-  display: "flex",
-  direction: FlexDirection,
-  reverse: boolean,
-  wrap: FlexWrap,
-  hJustify: FlexJustify,
-  vJustify: FlexJustify
+class FlexContainer extends BlockElement {
+  readonly display = "flex"
+  direction: FlexDirection = FlexDirection.ROW
+  reverse: boolean = false
+  wrap: FlexWrap = FlexWrap.NOWRAP
+  hJustify: FlexJustify = FlexJustify.FLEX_START
+  vJustify: FlexJustify = FlexJustify.FLEX_START
+
+  constructor(configure: ElementConfiguration<FlexContainer>) {
+    super(configure);
+    Object.assign(this, configure);
+  }
 }
 
 interface UISet {
@@ -150,7 +249,20 @@ const e2n = {
         return "visible";
     }
   }
-}
+} as const
+
+const e2css = {
+  overflow: (overflow: BlockOverflow): string => {
+    switch (overflow) {
+      case BlockOverflow.AUTO:
+        return "auto";
+      case BlockOverflow.CLIP:
+        return "clip";
+      case BlockOverflow.VISIBLE:
+        return "visible";
+    }
+  }
+} as const
 
 function validateAndReturnIcon(propName: string): string {
   if (propName in Object.keys(iconLibrary)) {
@@ -185,55 +297,30 @@ const getIcon = {
   },
 }
 
-let usedIds: string[] = [];
-let nextIdIdx = 0;
-function id2str(id: number): string {
-  // spreadsheet-style ids (a, b, c, ..., y, z, aa, ab, ac, ..., az, ba, bb, ...)
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
-  const alphabetLen = alphabet.length;
-  let str = "";
-  while (id >= alphabetLen) {
-    str += alphabet[id % alphabetLen];
-    id = Math.floor(id / alphabetLen) - 1;
-  }
-  str += alphabet[id];
-  str = str.split('').reverse().join('');
-  return str;
-}
-function nextElId(): string {
-  while (true) {
-    const id = id2str(nextIdIdx++);
-    if (!usedIds.includes(id)) {
-      usedIds.push(id);
-      return id;
-    }
-  }
-}
-
 function makePlaceholder(): InlineElement {
-  return {
+  return new InlineElement({
     autoPlaceholder: false,
-    children: [],
     locked: EditorLock.ALL,
     ephemeral: true,
-    display: "inline",
-    id: nextElId(),
-  }
+  })
 }
 
 function defaultSingleUser(): AbstractElement {
-  return <BlockElement>{
+  return new BlockElement({
     autoPlaceholder: true,
-    children: [],
+    children: [
+      new TextElement({
+        text: UI_EDITOR_WELCOME
+      })
+    ],
     locked: EditorLock.PROPERTIES,
     id: nextElId(),
-    display: "block",
     ephemeral: false,
     hLayout: BlockLayout.FILL,
     hOverflow: BlockOverflow.AUTO,
     vLayout: BlockLayout.SHRINK,
     vOverflow: BlockOverflow.AUTO,
-  }
+  })
 }
 
 export type {
