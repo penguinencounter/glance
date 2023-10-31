@@ -1,4 +1,3 @@
-import { ObjectConfiguration } from "../shared";
 import iconLibrary from "./iconLibrary";
 
 // UIEditor Structured Data
@@ -365,7 +364,7 @@ function defaultSingleUser(): AbstractElement {
     autoPlaceholder: true,
     children: [
       new TextElement({
-        text: UI_EDITOR_WELCOME
+        text: "Welcome to the Glance UI editor! Drag-and-drop elements into this container to add them to the page."
       })
     ],
     locked: EditorLock.PROPERTIES,
