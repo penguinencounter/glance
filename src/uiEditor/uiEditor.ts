@@ -3,6 +3,7 @@ import editorConfiguration from "./editorConfiguration"
 import STYLESHEET from "./uiEditor.r.css"
 import SOURCE from "./uiEditor.r.html"
 import { WikipathType } from "../pagemods/structures";
+import structure from "./structure";
 
 // Warning: flex layout `align-items` (cross axis) doesn't support `space-between` or `space-around`. Ever. `align-content` doesn't do what you think it does.
 // However, `justify-content` (main axis) does support `space-between` and `space-around`.
@@ -190,9 +191,18 @@ class UIEditor {
     document.body.classList.add("glance-no-scroll")
     this.main.focus();
     this.locked = false
+
   }
 
   public async open(target: WikipathType, instant?: boolean): Promise<void> {
+    // Load the editor contents
+    // TODO: actual loading
+    const viewport = this.main.querySelector("#glance-ui-editor-viewport")
+    if (viewport === null) throw new Error("Viewport not found")
+    const content = structure.defaultSingleUser()
+    const contentNode = content.build()
+    viewport.appendChild(contentNode)
+
     instant = instant || false;
     if (instant) {
       this.main.classList.add("glance-ui-editor-open");
